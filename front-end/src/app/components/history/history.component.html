@@ -1,0 +1,28 @@
+<p-table [columns]="cols" [value]="points" >
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of cols" >
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-point >
+    <tr>
+<!--      *ngFor="let point of points"-->
+      <td>{{point.x}}</td>
+      <td>{{point.y}}</td>
+      <td>{{point.r}}</td>
+      <td>{{point.hit ? 'котик долетел' : 'котик дрейфует в бесконечной пустоте космоса'}}</td>
+      <td>{{point.created | date:'medium'}}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage" let-cols>
+    <tr>
+      <td [attr.colspan]="5">
+        Не было произведено ни одного запуска
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

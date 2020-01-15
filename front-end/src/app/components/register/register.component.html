@@ -1,0 +1,35 @@
+<div class="main">
+  <app-header></app-header>
+  <div class="register">
+    <h2>Регистрация</h2>
+    <form name="form" class="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+          <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+          <span id="reauth-email" class="reauth-email"></span>
+          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+            <label for="username">Логин: </label>
+            <input type="text" class="form-control" name="username"  [(ngModel)]="user.username" #username="ngModel" required />
+            <div *ngIf="f.submitted && !username.valid" class="help-block">нужен логин</div>
+          </div>
+          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label for="password">Пароль: </label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel" required minlength="4"/>
+            <div *ngIf="f.submitted && !password.valid" class="help-block">
+
+              <div *ngIf="password.errors.required">
+                пароль тоже нужен
+              </div>
+              <div *ngIf="password.errors.minlength">
+                слтшком короткий. хотя бы 4 символа
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit"class="btn-primary">Зарегистрироваться</button>
+            <a [routerLink]="['/login']" class="btn-link">Войти</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+

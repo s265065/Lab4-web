@@ -1,0 +1,40 @@
+span{
+  font-size: large;
+  font-family: Courier New, monospace;
+  margin: 4px;
+  border-radius: 10px;
+  border-style: groove;
+  padding: 5px;
+  color: azure;
+  background-color: rgba(250, 250, 250, 0.31);
+    /*display: unset;*/
+}
+
+button{
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background: none;
+    margin: 10px;
+}
+
+@media (max-width:1105px){
+
+    .head{
+    margin-left:auto;
+    margin-right:auto;
+    display: inline-grid;
+}
+
+
+}
+
+@media (max-width:790px){
+
+    .head {
+    margin-left:auto;
+    margin-right:auto;
+    display: inline-grid;
+}
+
+}

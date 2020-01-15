@@ -1,0 +1,49 @@
+<div class="{{isDesktopDisplay()?'':'flex-g-center'}}">
+  <form id="formId" class="block {{isDesktopDisplay()?'desktop-form':''}}" name="form-check"
+        (ngSubmit)="addPointsFromForm()" #f="ngForm" novalidate>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+
+    <div class="xInput">
+      <div class="amazing-checkbox" *ngFor="let x of AVAILABLE_X" [id]="'checkX'+x">
+        <label>
+          <p-checkbox name="X" value="{{x}}" [(ngModel)]="selectedX" inputId="{{x}}"
+          (click)="checked('X',x)"></p-checkbox>
+          <span>{{x}}</span>
+        </label>
+      </div>
+    </div>
+    Selected Xs: <span *ngFor="let x of selectedX" style="margin-right:10px">{{x}}</span>
+
+    <br>
+
+    <div class="yInput">
+      <input type="text" placeholder="-5...3" [(ngModel)]="selectedY" name="Y" pInputText pKeyFilter="num"/>
+    </div>
+
+    <br>
+
+    <div class="rInput">
+      <div class="amazing-checkbox" *ngFor="let r of AVAILABLE_R" [id]="'checkR'+r">
+        <label>
+          <p-checkbox name="R" value="{{r}}" [(ngModel)]="selectedR" inputId="{{r}}"
+                      #selectR (onChange)="drawGraphic(selectR.value)"
+                      ></p-checkbox>
+          <span>{{r}}</span>
+        </label>
+      </div>
+    </div>
+    Selected Rs: <span *ngFor="let r of selectedR" style="margin-right:10px">{{r}}</span>
+
+    <br>
+
+    <div class="btn-cntnr">
+      <p-button label="Полетели!" type="submit" class="btn-primary"></p-button>
+    </div>
+  </form>
+</div>
+
+<div class="{{isDesktopDisplay()?'':'flex-g-center'}}">
+  <canvas #canvas class="block {{isDesktopDisplay()?'desktop-canvas':''}}" width="400" height="400"
+          (click)="addPointFromCanvas()">
+  </canvas>
+</div>

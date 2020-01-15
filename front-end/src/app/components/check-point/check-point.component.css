@@ -1,0 +1,151 @@
+*{
+  font-family: Courier New, monospace;
+}
+
+.rInput, .xInput, .yInput, .btn-cntnr
+{
+  margin-left:auto;
+  margin-right:auto;
+  display: table;
+}
+
+
+.amazing-checkbox {
+  display: inline-block;
+  border: medium dotted azure;
+  position: relative;
+  margin: 4px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.amazing-checkbox > label{
+  display: contents;
+  cursor: pointer;
+}
+
+.amazing-checkbox > label > p-checkbox {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.amazing-checkbox > label > span {
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  line-height: 25px;
+  text-align: center;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.checked{
+  background: url('../../../assets/img/paws/white-paw.png') center/contain no-repeat;
+  color: #080808;
+}
+
+
+input{
+  font-size: large;
+  font-family: Courier New, monospace;
+  /*margin: 5px;*/
+  border-radius: 10px;
+  border-style: groove;
+  padding: 5px;
+  color: azure;
+  background-color: rgba(48, 48, 48, 0.87);
+}
+
+::ng-deep .btn-cntnr > .btn-primary .ui-button  {
+  /*height: 37px;*/
+  /*width: 108px;*/
+  border-radius: 10px!important;
+  padding: 5px;
+  margin: 5px;
+  /*border: 2px solid cadetblue;*/
+  outline: none;
+  /*background: linear-gradient(to bottom, #74d6d6, #34b3b3)!important;*/
+  color: azure;
+  background: rgba(48, 48, 48, 0.65);
+  font-family: Courier New, monospace;
+  font-size: large;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+::ng-deep .btn-primary .ui-button:hover {
+  border-color: #191919;
+}
+.checked > ui-chkbox ui-widget{
+  background-color: #3B55A0;
+}
+canvas{
+  background-image: url("../../../assets/img/backgrounds/black.jpg");
+}
+
+
+
+
+/*form {*/
+/*  margin-top: 17%;*/
+/*  padding: 10px 15px;*/
+/*  width: 310px;*/
+/*  min-height: 310px;*/
+/*}*/
+
+/*.desktop-form {*/
+/*  float: left;*/
+/*  margin-left: 10%;*/
+/*}*/
+
+/*canvas {*/
+/*  padding: 5px;*/
+/*  margin: 17% 0;*/
+/*}*/
+
+/*.desktop-canvas {*/
+/*  float: right;*/
+/*  margin-right: 10%;*/
+/*}*/
+
+/*form .form-group {*/
+/*  margin: 15px 0;*/
+
+/*}*/
+
+/*form button {*/
+/*  margin-top: 30px;*/
+/*  height: 38px;*/
+/*  margin-left: auto;*/
+/*  margin-right: auto;*/
+/*}*/
+
+/*.btn-block {*/
+/*  width: 150px;*/
+/*}*/
+
+/*form input[type=text], form select {*/
+/*  width: 200px;*/
+/*  margin-left: auto;*/
+/*  margin-right: auto;*/
+/*  height: 30px;*/
+/*  border-radius: 5px;*/
+/*}*/
+
+/*form select {*/
+/*  margin-left: 40px;*/
+/*}*/
+
+/*.form-group {*/
+/*  margin-bottom: 0;*/
+/*}*/

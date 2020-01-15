@@ -1,0 +1,22 @@
+<div>
+  <nav id="header" class="navbar navbar-inverse reset-border-radius">
+  <ul class="nav">
+    <li class="to-left {{section!='check-point'?'active':''}}" (click)="changeSection('profile')"><a  routerLink="/profile" routerLinkActive="active">History</a></li>
+    <li class="to-left {{section=='check-point'?'active':''}}" (click)="changeSection('check-point')"><a routerLink="/check-point" routerLinkActive="active" > Check Point</a></li>
+    <li class="to-right"><a href="#" (click)="logOut()"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div id="more-info" #moreInfo style="visibility: hidden" >
+    <app-info [username]="currentUser.username"></app-info>
+  </div>
+  <div id="history-page" *ngIf="section == 'profile'">
+    <app-history></app-history>
+  </div>
+  <div id="check-point-page" *ngIf="section == 'check-point'">
+    <app-check-point></app-check-point>
+  </div>
+</div>
+</div>
+
