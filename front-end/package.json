@@ -33,6 +33,7 @@
     "primeng": "^9.0.0-rc.2",
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.0.0-rc.0",
+    "selenium-webdriver": "^4.0.0-alpha.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

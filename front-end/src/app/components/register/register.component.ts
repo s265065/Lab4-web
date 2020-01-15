@@ -20,11 +20,11 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.accountService.createAccount(this.user).subscribe(data => {
+    this.accountService.createAccount(this.user).subscribe(response => {
         this.router.navigate(['/login']);
-      }, err => {
-        console.log(err);
-        this.errorMessage = "username already exist";
+        this.errorMessage = '';
+      }, error => {
+        this.errorMessage = "другой котик уже занял это кодовое имя";
       }
     )
   }

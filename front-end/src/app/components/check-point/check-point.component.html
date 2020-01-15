@@ -1,19 +1,19 @@
-<div class="{{isDesktopDisplay()?'':'flex-g-center'}}">
-  <form id="formId" class="block {{isDesktopDisplay()?'desktop-form':''}}" name="form-check"
-        (ngSubmit)="addPointsFromForm()" #f="ngForm" novalidate>
-    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+<div class="canvas-form">
+  <div class="request-form">
+    <form id="formId" class="block {{isDesktopDisplay()?'desktop-form':''}}" name="form-check"
+          (ngSubmit)="addPointsFromForm()" #f="ngForm" novalidate>
+      <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
 
-    <div class="xInput">
-      <div class="amazing-checkbox" *ngFor="let x of AVAILABLE_X" [id]="'checkX'+x">
-        <label>
-          <p-checkbox name="X" value="{{x}}" [(ngModel)]="selectedX" inputId="{{x}}"
-          (click)="checked('X',x)"></p-checkbox>
+      <div class="xInput">
+        <div class="amazing-checkbox" *ngFor="let x of AVAILABLE_X" [id]="'checkX'+x">
+          <label>
+            <p-checkbox name="X" value="{{x}}" [(ngModel)]="selectedX" inputId="{{x}}"
+                        #selectX (click)="checked('X',selectX.value)"
+            ></p-checkbox>
           <span>{{x}}</span>
         </label>
       </div>
     </div>
-    Selected Xs: <span *ngFor="let x of selectedX" style="margin-right:10px">{{x}}</span>
-
     <br>
 
     <div class="yInput">
@@ -21,7 +21,6 @@
     </div>
 
     <br>
-
     <div class="rInput">
       <div class="amazing-checkbox" *ngFor="let r of AVAILABLE_R" [id]="'checkR'+r">
         <label>
@@ -32,18 +31,18 @@
         </label>
       </div>
     </div>
-    Selected Rs: <span *ngFor="let r of selectedR" style="margin-right:10px">{{r}}</span>
-
     <br>
 
     <div class="btn-cntnr">
       <p-button label="Полетели!" type="submit" class="btn-primary"></p-button>
     </div>
-  </form>
+    </form>
+  </div>
+  <div></div>
+  <div class="{{isDesktopDisplay()?'':'flex-g-center'}}">
+    <canvas #canvas class="block {{isDesktopDisplay()?'desktop-canvas':''}}" width="400" height="400"
+            (click)="addPointFromCanvas()">
+    </canvas>
+  </div>
 </div>
 
-<div class="{{isDesktopDisplay()?'':'flex-g-center'}}">
-  <canvas #canvas class="block {{isDesktopDisplay()?'desktop-canvas':''}}" width="400" height="400"
-          (click)="addPointFromCanvas()">
-  </canvas>
-</div>

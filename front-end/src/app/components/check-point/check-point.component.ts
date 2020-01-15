@@ -11,6 +11,43 @@ import {Point} from "../../model/model.point";
 })
 export class CheckPointComponent implements OnInit {
 
+  meows = [new Audio("../../../assets/meows/meow.ogg"),
+    new Audio("../../../assets/meows/meow.mp3"),
+    new Audio("../../../assets/meows/meow (1).mp3"),
+    new Audio("../../../assets/meows/meow (2).mp3"),
+    new Audio("../../../assets/meows/meow (3).mp3"),
+    new Audio("../../../assets/meows/meow (4).mp3"),
+    new Audio("../../../assets/meows/meow (5).mp3"),
+    new Audio("../../../assets/meows/meow (6).mp3"),
+    new Audio("../../../assets/meows/meow (7).mp3"),
+    new Audio("../../../assets/meows/meow (8).mp3"),
+    new Audio("../../../assets/meows/meow (9).mp3"),
+    new Audio("../../../assets/meows/meow (10).mp3"),
+    new Audio("../../../assets/meows/meow (11).mp3"),
+    new Audio("../../../assets/meows/meow (12).mp3"),
+    new Audio("../../../assets/meows/meow (13).mp3"),
+    new Audio("../../../assets/meows/meow (14).mp3"),
+    new Audio("../../../assets/meows/meow (15).mp3"),
+    new Audio("../../../assets/meows/meow (16).mp3"),
+    new Audio("../../../assets/meows/meow (17).mp3"),
+    new Audio("../../../assets/meows/meow (18).mp3"),
+    new Audio("../../../assets/meows/meow (19).mp3"),
+    new Audio("../../../assets/meows/meow (20).mp3"),
+    new Audio("../../../assets/meows/meow (21).mp3"),
+    new Audio("../../../assets/meows/meow (22).mp3"),
+    new Audio("../../../assets/meows/meow (23).mp3"),
+    new Audio("../../../assets/meows/meow (24).mp3"),
+    new Audio("../../../assets/meows/meow (25).mp3"),
+    new Audio("../../../assets/meows/meow (26).mp3"),
+    new Audio("../../../assets/meows/meow (27).mp3"),
+    new Audio("../../../assets/meows/meow (1).wav"),
+    new Audio("../../../assets/meows/meow (2).wav"),
+    new Audio("../../../assets/meows/meow (3).wav"),
+    new Audio("../../../assets/meows/meow (4).wav"),
+    new Audio("../../../assets/meows/meow (5).wav"),
+    new Audio("../../../assets/meows/meow (6).wav"),
+    new Audio("../../../assets/meows/meow (7).wav")];
+
   @ViewChild('canvas', {static: true})
   canvas: ElementRef;
 
@@ -38,7 +75,12 @@ export class CheckPointComponent implements OnInit {
     // this.drawGraphic(1);
   }
 
+  randomPlay() {
+    this.meows[Math.floor(Math.random() * this.meows.length)].play();
+  }
+
   addPointsFromForm() {
+    this.randomPlay();
     for (let i = 0; i < this.selectedR.length; i++) {
       for (let j = 0; j < this.selectedX.length; j++) {
         this.point.x = this.selectedX[j];
@@ -76,12 +118,13 @@ export class CheckPointComponent implements OnInit {
     console.log("getting points");
     this.service.getPointsRecalculated(r).subscribe(data => {
       (data as Point[]).forEach(p => this.drawPoint(p));
-    console.log(data)});
+    });
 
   }
 
   addPointFromCanvas() {
     console.log("Click on canvas");
+    this.randomPlay();
 
     const centerX = this.CANVAS_WIDTH / 2;
     const centerY = this.CANVAS_HEIGHT / 2;
@@ -100,6 +143,7 @@ export class CheckPointComponent implements OnInit {
       this.point.r = this.selectedR[i];
       this.point.created = Date.now();
       this.addPoint();
+      this.showCat(this.point.hit);
     }
 
   }
@@ -137,10 +181,11 @@ export class CheckPointComponent implements OnInit {
     const intR = parseInt(r, 10);
     if (!isNaN(intR)) {
       if (this.AVAILABLE_R.indexOf(intR) !== -1) {
-        if (this.selectedR.indexOf(intR) === -1) {
-          this.checked("R",intR);
+        if (this.selectedR.indexOf(r) === -1) {
+          console.log('in')
         } else {
           this.selectedR = this.selectedR.filter(e => e !== intR);
+          console.log('out')
         }
         if (this.selectedR.length < 1) {
           this.clearCtx();
@@ -150,11 +195,12 @@ export class CheckPointComponent implements OnInit {
           for (let i = 0; i < this.selectedR.length; i++) {
             this.draw(this.selectedR[i], (i + 1) / this.selectedR.length);
             this.getPointsRecalculated(intR);
-            console.log(this.getPointsRecalculated(intR));
+            // console.log(this.getPointsRecalculated(intR));
           }
         }
       } else {console.log('unavailable r!');}
     } else {console.log('r is not a number!');}
+    this.checked("R", r);
   }
 
   draw(r: number, alpha: number ) {
@@ -220,23 +266,27 @@ export class CheckPointComponent implements OnInit {
     return document.body.clientWidth >= 1105;
   }
 
-  checked(name: string, ind: number){
+  checked(name: string, ind: any) {
 
-    const elem = document.getElementById('check'+name+ind);
+    this.randomPlay();
+
+    const elem = document.getElementById('check' + name + ind);
     switch (name) {
       case 'R': {
-        console.log(this.selectedR.indexOf(ind), ind);
-        if (this.selectedR.indexOf(ind)===-1){
+        if (this.selectedR.indexOf(ind) !== -1) {
           this.setChecked(elem)
-        }else {this.setUnchecked(elem);}
-        console.log(this.selectedR);
+        } else {
+          this.setUnchecked(elem);
+        }
         return;
       }
       case 'X': {
         console.log(ind, this.selectedX.indexOf(ind), this.selectedX);
-        if (this.selectedX.includes(ind)){
+        if (this.selectedX.indexOf(ind) === -1) {
           this.setChecked(elem)
-        }else {this.setUnchecked(elem);}
+        } else {
+          this.setUnchecked(elem);
+        }
         return;
       }
     }
@@ -244,18 +294,23 @@ export class CheckPointComponent implements OnInit {
 
   setChecked(elem: any){
     elem.style= 'font-weight: bold';
-    elem.style.background= "url('../../../assets/img/paws/white-paw.png') center/contain no-repeat";
-    elem.style.color ='#080808';
-    console.log('check');
+    elem.style.background = "url('../../../assets/img/paws/white-paw.png') center/contain no-repeat";
+    elem.style.color = '#080808';
   }
 
-  setUnchecked(elem: any){
-    elem.style= 'font-weight: normal';
+  setUnchecked(elem: any) {
+    elem.style = 'font-weight: normal';
     elem.style.background = 'none';
-    elem.style.color ='azure';
-    console.log('uncheck');
+    elem.style.color = 'azure';
   }
 
+  showCat(hit: boolean) {
+    const red = document.getElementById('redEyedImage');
+    const green = document.getElementById('greenEyedImage');
+    const cat = document.getElementById('cat');
+    hit ? cat.style.background = "url('../../../assets/gifs/red-eyed.gif') center/contain no-repeat"
+      : cat.style.background = "url('../../../assets/gifs/green-eyed.gif') center/contain no-repeat"
+  }
 
   private error(message: string) {
     this.errorMessage = message;

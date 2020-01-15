@@ -2,6 +2,7 @@ package lab4;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,17 +18,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors()
+
+        http.httpBasic()
                 .and()
-                    .authorizeRequests() // авторизация
-                    .antMatchers("/", "/login", "/api/v1/user/login", "/api/v1/user/register").permitAll() //для этих страниц есть доступ у всех
-                    .anyRequest().authenticated() //для всех остальных - авторизация
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/api/v1/points/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/v1/points/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/users/logout").authenticated()
+                .anyRequest().permitAll()
+//                    .authorizeRequests() // авторизация
+//                    .anyRequest().authenticated() //для всех остальных - авторизация
                 .and()
-                    .logout()
+                .logout()
                     .permitAll()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/api/v1/user/logout", "POST")) //защита CSRF
-                .and()
-                    .httpBasic()
+
                 .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // управляет только тем, что делает SS, а не всем приложением. SS не может создать сеанс, если мы не даем ему указанияПо умолчанию SS создаст сеанс, когда ему нужно("ifRequired").
@@ -35,6 +40,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf().disable(); //отключение защиты CSRF
     }
 
+    //
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .httpBasic().disable()
+//                .csrf().disable()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers(HttpMethod.GET, "/api/v1/points/**").authenticated()
+//                .antMatchers(HttpMethod.POST, "/api/v1/points/**").authenticated()
+//                .antMatchers(HttpMethod.POST, "/api/users/logout").authenticated()
+//                .anyRequest().permitAll()
+//                .and()
+//                .apply(new SecurityConfigurer(tokenProvider));
+//    }
     //кодирование пароля
     @Bean
     public PasswordEncoder passwordEncoder() {

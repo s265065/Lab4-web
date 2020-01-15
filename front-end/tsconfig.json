@@ -3,7 +3,8 @@
   "compilerOptions": {
     "downlevelIteration": true,
     "importHelpers": true,
-    "outDir": "./dist/out-tsc",
+    //    "outDir": "./dist/out-tsc",
+    "outDir": "../src/main/resources/static",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
